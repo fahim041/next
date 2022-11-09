@@ -1,4 +1,5 @@
 import { MongoClient } from "mongodb";
+import Head from "next/head";
 import MeetupList from "../components/meetups/MeetupList";
 
 // const meetups = [
@@ -19,9 +20,15 @@ import MeetupList from "../components/meetups/MeetupList";
 //     description: "this is a second meetup",
 //   },
 // ];
-
 function Home({ meetups }) {
-  return <MeetupList meetups={meetups} />;
+  return (
+    <>
+      <Head>
+        <title>Home</title>
+      </Head>
+      <MeetupList meetups={meetups} />
+    </>
+  );
 }
 
 export async function getStaticProps() {
