@@ -3,8 +3,10 @@ import { UserContext } from "../lib/context";
 import { auth, googleAuthProvider } from "../lib/firebase";
 import debounce from "lodash.debounce";
 import { firestore } from "../lib/firebase";
+import { useRouter } from "next/router";
 
 export default function EnterPage() {
+  const router = useRouter();
   const { user, username } = useContext(UserContext);
   return (
     <main>
@@ -15,15 +17,17 @@ export default function EnterPage() {
           <SignOutButton />
         )
       ) : (
-        <SignInButton />
+        <SignInButton router={router} />
       )}
     </main>
   );
 }
 
-function SignInButton() {
+function SignInButton({ router }) {
   const signInWithGoogle = async () => {
     await auth.signInWithPopup(googleAuthProvider);
+
+    router.push("/");
   };
   return (
     <button className="btn-google" onClick={signInWithGoogle}>
@@ -32,7 +36,7 @@ function SignInButton() {
   );
 }
 
-function SignOutButton() {
+export function SignOutButton() {
   return <button onClick={() => auth.signOut()}>Sign Out</button>;
 }
 

@@ -66,6 +66,7 @@ function CreateNewPost() {
       content: "# hello world",
       createdAt: serverTimestamp(),
       updatedAt: serverTimestamp(),
+      heartCount: 0,
     };
 
     await ref.set(data);
